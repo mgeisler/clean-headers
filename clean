@@ -1,0 +1,108 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import re
+import codecs
+import argparse
+
+CODING_LINE = re.compile(r"coding[:=]\s*([-\w.]+)")
+BAD_CODING_LINE = "-*- encoding:"
+GOOD_CODING_LINE = "-*- coding:"
+UTF8_CODING_LINE = "# -*- coding: utf-8 -*-\n"
+BAD_COPYRIGHT = u'Copyright ©'
+GOOD_COPYRIGHT = 'Copyright'
+
+
+def remove_copyright_symbols(lines):
+    changed = False
+    for i, line in enumerate(lines):
+        if line.startswith('#') and BAD_COPYRIGHT in line:
+            lines[i] = line.replace(BAD_COPYRIGHT, GOOD_COPYRIGHT)
+            changed = True
+    return changed
+
+
+def remove_coding_line(lines):
+    for i, line in enumerate(lines[:2]):
+        if CODING_LINE.search(line):
+            del lines[i]
+            return True
+    return False
+
+
+def all_ascii(lines):
+    return all(all(ord(c) < 0x7f for c in line) for line in lines)
+
+
+def add_coding_line(lines):
+    if not lines:
+        return False
+
+    for line in lines[:2]:
+        if CODING_LINE.search(line):
+            return False
+
+    idx = 0
+    if lines and lines[0].startswith('#!'):
+        idx = 1
+
+    lines.insert(idx, UTF8_CODING_LINE)
+
+    if lines[idx+1].rstrip() not in ['', '#']:
+        lines.insert(idx + 1, '#\n')
+
+    return True
+
+
+def fix_coding_line(lines):
+    for i, line in enumerate(lines[:2]):
+        if CODING_LINE.search(line) and line != UTF8_CODING_LINE:
+            lines[i] = UTF8_CODING_LINE
+            return True
+    return False
+
+
+def process_file(path, simplify=False, remove=False, fix=False, add=False):
+    lines = codecs.open(path, 'r', 'utf-8').readlines()
+    changed = False
+
+    if simplify:
+        if remove_copyright_symbols(lines):
+            print 'simplified', path
+            changed = True
+
+    if add:
+        if add_coding_line(lines):
+            print 'added', path
+            changed = True
+
+    if remove and all_ascii(lines):
+        if remove_coding_line(lines):
+            print 'cleaned', path
+            changed = True
+
+    if fix:
+        if fix_coding_line(lines):
+            print 'fixed', path
+            changed = True
+
+    if changed:
+        with codecs.open(path, 'w', 'utf-8') as fp:
+            fp.writelines(lines)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--simplify', action='store_true',
+                        help="simplify by removing unicode copyright symbol")
+    parser.add_argument('-r', '--remove', action='store_true',
+                        help="remove unnecessary coding line")
+    parser.add_argument('-f', '--fix', action='store_true',
+                        help="make encoding line Emacs-friendly")
+    parser.add_argument('-a', '--add', action='store_true',
+                        help="add Emacs-friendly encoding line")
+    parser.add_argument('files', nargs='+', help="files to process")
+
+    args = parser.parse_args()
+    for path in args.files:
+        process_file(path, args.simplify, args.remove, args.fix, args.add)
