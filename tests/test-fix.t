@@ -5,6 +5,7 @@
   >   alias clean="coverage run --branch -a $TESTDIR/../clean"
   > fi
 
+  $ echo "# -*- coding: utf-8 -*-" > good.py
   $ echo "# -*- coding=utf-8 -*-" > equal.py
   $ echo "# coding: utf-8" > no-marker.py
 
