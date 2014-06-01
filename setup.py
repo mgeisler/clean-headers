@@ -4,6 +4,12 @@ Clean File Headers
 
 from distutils.core import setup
 
+import sys
+
+requires = []
+if sys.version_info < (2, 7):
+    requires.append('argparse')
+
 setup(name='clean-headers',
       version='0.1',
       maintainer='Martin Geisler',
@@ -15,4 +21,5 @@ setup(name='clean-headers',
       classifiers=['Development Status :: 3 - Alpha',
                    'Programming Language :: Python :: 2',
                    'Programming Language :: Python :: 3'],
+      install_requires=requires,
       scripts=['clean'])
