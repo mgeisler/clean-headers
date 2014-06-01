@@ -19,6 +19,11 @@
   > # ...
   > EOM
 
+  $ cat > shebang.py <<EOM
+  > #!/bin/python
+  > # no coding line
+  > EOM
+
   $ clean -a *.py
   added blank-first.py
   added comment-first.py
