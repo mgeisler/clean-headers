@@ -5,6 +5,6 @@ env:
   - ENV=py34 COVERAGE=on
   - ENV=pep8 COVERAGE=on
   - ENV=pyflakes
-install: pip install tox coverage
+install: pip install tox python-coveralls
 script: tox -e $ENV
-after_success: coverage report
+after_success: coveralls
