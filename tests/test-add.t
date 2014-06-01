@@ -28,6 +28,7 @@
   added blank-first.py
   added comment-first.py
   added one-line.py
+  added shebang.py
 
   $ cat blank-first.py
   # -*- coding: utf-8 -*-
@@ -38,3 +39,9 @@
   # -*- coding: utf-8 -*-
   #
   # one line
+
+  $ cat shebang.py
+  #!/bin/python
+  # -*- coding: utf-8 -*-
+  #
+  # no coding line
