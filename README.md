@@ -5,4 +5,10 @@ clean-headers
 [![Coverage Status](https://img.shields.io/coveralls/mgeisler/clean-headers.svg)](https://coveralls.io/r/mgeisler/clean-headers?branch=master)
 
 
-Cleanup Python/Ruby file encoding headers
+This is a simple script for adding/removing Python/Ruby file encoding
+headers. This is headers line
+
+    # -*- coding: utf-8 -*-
+
+found as the first or second line in a file. The line informs both
+Python/Ruby and Emacs about the encoding used in the file.
