@@ -1,0 +1,5 @@
+# -*- mode: conf -*-
+#
+# Until https://bitbucket.org/brodie/cram/pull-request/4/ is merged
+# and released we use this fork.
+-e hg+https://bitbucket.org/mg/cram/#egg=cram

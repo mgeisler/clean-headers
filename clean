@@ -68,22 +68,22 @@ def process_file(path, simplify=False, remove=False, fix=False, add=False):
 
     if simplify:
         if remove_copyright_symbols(lines):
-            print 'simplified', path
+            print('simplified %s' % path)
             changed = True
 
     if add:
         if add_coding_line(lines):
-            print 'added', path
+            print('added %s' % path)
             changed = True
 
     if remove and all_ascii(lines):
         if remove_coding_line(lines):
-            print 'cleaned', path
+            print('cleaned %s' % path)
             changed = True
 
     if fix:
         if fix_coding_line(lines):
-            print 'fixed', path
+            print('fixed %s' % path)
             changed = True
 
     if changed:

@@ -1,6 +1,7 @@
 language: python
 env:
   - ENV=py27
+  - ENV=py33
   - ENV=pep8
   - ENV=pyflakes
 install: pip install tox
