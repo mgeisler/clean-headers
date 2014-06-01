@@ -1,4 +1,6 @@
 .tox/
+.coverage
+htmlcov
 MANIFEST
 *.egg-info
 *~
