@@ -1,9 +1,10 @@
 language: python
 env:
-  - ENV=py27
-  - ENV=py33
-  - ENV=py34
-  - ENV=pep8
+  - ENV=py27 COVERAGE=on
+  - ENV=py33 COVERAGE=on
+  - ENV=py34 COVERAGE=on
+  - ENV=pep8 COVERAGE=on
   - ENV=pyflakes
-install: pip install tox
+install: pip install tox coverage
 script: tox -e $ENV
+after_success: coverage report
