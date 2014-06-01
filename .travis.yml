@@ -1,7 +1,7 @@
 language: python
-python:
-  - "2.7"
-install:
-  - pip install cram
-  - pip install .
-script: cram tests
+env:
+  - ENV=py27
+  - ENV=pep8
+  - ENV=pyflakes
+install: pip install tox
+script: tox -e $ENV
