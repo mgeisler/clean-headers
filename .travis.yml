@@ -1,10 +1,6 @@
 language: python
 env:
-  - ENV=py27 COVERAGE=on
-  - ENV=py33 COVERAGE=on
-  - ENV=py34 COVERAGE=on
-  - ENV=pep8
-  - ENV=pyflakes
+  - COVERAGE=on
 install: pip install tox python-coveralls
-script: tox -e $ENV
-after_success: test -n "$COVERAGE" && coveralls
+script: tox
+after_success: coveralls
