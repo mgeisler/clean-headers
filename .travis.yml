@@ -3,7 +3,7 @@ env:
   - ENV=py27 COVERAGE=on
   - ENV=py33 COVERAGE=on
   - ENV=py34 COVERAGE=on
-  - ENV=pep8 COVERAGE=on
+  - ENV=pep8
   - ENV=pyflakes
 install: pip install tox python-coveralls
 script: tox -e $ENV
