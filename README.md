@@ -12,3 +12,11 @@ headers. This is headers line
 
 found as the first or second line in a file. The line informs both
 Python/Ruby and Emacs about the encoding used in the file.
+
+
+License
+-------
+
+The clean headers script is licensed under the [MIT license][1].
+
+[1]: LICENSE
