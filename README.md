@@ -14,6 +14,15 @@ found as the first or second line in a file. The line informs both
 Python/Ruby and Emacs about the encoding used in the file.
 
 
+Contributing
+------------
+
+Please open a pull request! Travis will test the code (including
+running it through pep8 and pyflakes) and let you know about the
+results. The test coverage will also be reported, please try to keep
+it as high as you found it.
+
+
 License
 -------
 
