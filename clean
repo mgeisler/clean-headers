@@ -9,8 +9,19 @@ CODING_LINE = re.compile(r"coding[:=]\s*([-\w.]+)")
 BAD_CODING_LINE = "-*- encoding:"
 GOOD_CODING_LINE = "-*- coding:"
 UTF8_CODING_LINE = "# -*- coding: utf-8 -*-\n"
+NON_ASCII_COPYRIGHT = u'©'
+ASCII_COPYRIGHT = '(c)'
 BAD_COPYRIGHT = u'Copyright ©'
 GOOD_COPYRIGHT = 'Copyright'
+
+
+def expand_copyright_symbols(lines):
+    changed = False
+    for i, line in enumerate(lines):
+        if line.startswith('#') and NON_ASCII_COPYRIGHT in line:
+            lines[i] = line.replace(NON_ASCII_COPYRIGHT, ASCII_COPYRIGHT)
+            changed = True
+    return changed
 
 
 def remove_copyright_symbols(lines):
@@ -62,9 +73,15 @@ def fix_coding_line(lines):
     return False
 
 
-def process_file(path, simplify=False, remove=False, fix=False, add=False):
+def process_file(path, expand=False, simplify=False, remove=False, fix=False,
+                 add=False):
     lines = codecs.open(path, 'r', 'utf-8').readlines()
     changed = False
+
+    if expand:
+        if expand_copyright_symbols(lines):
+            print('expanded %s' % path)
+            changed = True
 
     if simplify:
         if remove_copyright_symbols(lines):
@@ -93,6 +110,8 @@ def process_file(path, simplify=False, remove=False, fix=False, add=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--expand', action='store_true',
+                        help="expand unicode copyright symbol into (c)")
     parser.add_argument('-s', '--simplify', action='store_true',
                         help="simplify by removing unicode copyright symbol")
     parser.add_argument('-r', '--remove', action='store_true',
@@ -105,4 +124,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     for path in args.files:
-        process_file(path, args.simplify, args.remove, args.fix, args.add)
+        process_file(path, args.expand, args.simplify, args.remove, args.fix,
+                     args.add)
