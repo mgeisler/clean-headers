@@ -4,3 +4,5 @@ htmlcov
 MANIFEST
 *.egg-info
 *~
+*.orig
+*.err
