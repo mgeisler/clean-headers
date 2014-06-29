@@ -81,7 +81,12 @@ def fix_coding_line(lines):
 
 def process_file(path, expand=False, simplify=False, remove=False, fix=False,
                  add=False):
-    lines = codecs.open(path, 'r', 'utf-8').readlines()
+    if path == '-':
+        fp = sys.stdin
+    else:
+        fp = codecs.open(path, 'r', 'utf-8')
+
+    lines = fp.readlines()
     changed = False
 
     if expand:
@@ -110,8 +115,11 @@ def process_file(path, expand=False, simplify=False, remove=False, fix=False,
             changed = True
 
     if changed:
-        with codecs.open(path, 'w', 'utf-8') as fp:
-            fp.writelines(lines)
+        if path == '-':
+            fp = sys.stdout
+        else:
+            fp = codecs.open(path, 'w', 'utf-8')
+        fp.writelines(lines)
 
 
 if __name__ == "__main__":
