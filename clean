@@ -86,27 +86,27 @@ def process_file(path, expand=False, simplify=False, remove=False, fix=False,
 
     if expand:
         if expand_copyright_symbols(lines):
-            print('expanded %s' % path)
+            sys.stderr.write('expanded %s\n' % path)
             changed = True
 
     if simplify:
         if remove_copyright_symbols(lines):
-            print('simplified %s' % path)
+            sys.stderr.write('simplified %s\n' % path)
             changed = True
 
     if add:
         if add_coding_line(lines):
-            print('added %s' % path)
+            sys.stderr.write('added %s\n' % path)
             changed = True
 
     if remove and all_ascii(lines):
         if remove_coding_line(lines):
-            print('cleaned %s' % path)
+            sys.stderr.write('cleaned %s\n' % path)
             changed = True
 
     if fix:
         if fix_coding_line(lines):
-            print('fixed %s' % path)
+            sys.stderr.write('fixed %s\n' % path)
             changed = True
 
     if changed:
