@@ -134,7 +134,8 @@ if __name__ == "__main__":
                         help="make encoding line Emacs-friendly")
     parser.add_argument('-a', '--add', action='store_true',
                         help="add Emacs-friendly encoding line")
-    parser.add_argument('files', nargs='*', help="files to process", default=['-'])
+    parser.add_argument('files', nargs='*', default=['-'],
+                        help="files to process")
 
     args = parser.parse_args()
     for path in args.files:
