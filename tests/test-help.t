@@ -2,7 +2,7 @@
 Basic help works:
 
   $ clean -h
-  usage: clean [-h] [-e] [-s] [-r] [-f] [-a] files [files ...]
+  usage: clean [-h] [-e] [-s] [-r] [-f] [-a] [files [files ...]]
   
   positional arguments:
     files           files to process

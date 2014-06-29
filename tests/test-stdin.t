@@ -5,7 +5,16 @@
   >   alias clean="coverage run --branch -a $TESTDIR/../clean"
   > fi
 
+With '-' arg:
+
   $ echo '' | clean -a -
+  added -
+  # -*- coding: utf-8 -*-
+  
+
+With no arg:
+
+  $ echo '' | clean -a
   added -
   # -*- coding: utf-8 -*-
   
