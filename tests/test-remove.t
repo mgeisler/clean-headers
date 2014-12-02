@@ -13,11 +13,21 @@
   > # ASCII text
   > EOM
 
+  $ cat > blank-line.py <<EOM
+  > # coding: utf-8
+  > #
+  > # more comments
+  > EOM
+
   $ echo "# coding: utf-8; ☃" > utf-8.py
   $ clean -r *.py
   cleaned ascii.py
+  cleaned blank-line.py
   cleaned only-coding-line.py
 
   $ cat ascii.py
   # ASCII text
   $ cat only-coding-line.py
+
+  $ cat blank-line.py
+  # more comments
