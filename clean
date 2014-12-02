@@ -43,6 +43,8 @@ def remove_coding_line(lines):
     for i, line in enumerate(lines[:2]):
         if CODING_LINE.search(line):
             del lines[i]
+            if i < len(lines) and lines[i].rstrip() in ['#', '']:
+                del lines[i]
             return True
     return False
 
